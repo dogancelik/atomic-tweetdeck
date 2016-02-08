@@ -1,6 +1,6 @@
-# Atomic TweetDeck
+<img src="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" height="330" alt="Atomic TweetDeck">
 
-Just a small [Electron](http://electron.atom.io/) TweetDeck app.
+**Atomic TweetDeck** is just a small [Electron](http://electron.atom.io/) TweetDeck app.
 
 * No modifications, just a web window.
 * Made specifically for Windows.
