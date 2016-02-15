@@ -1,12 +1,14 @@
 GLOBAL.electron = require('electron');
 GLOBAL.app = GLOBAL.electron.app;
 
+const path = require('path');
 const utils = require('./utils');
 const mutex = require('./mutex');
 const tray = require('./tray');
 const menu = require('./menu');
 
 GLOBAL.mainWindow = null;
+GLOBAL.appMenu = null;
 
 const iconPath = utils.getIconPath();
 
@@ -22,19 +24,20 @@ function createMainWindow () {
     webPreferences: {
       nodeIntegration: false,
       webSecurity: false,
-      plugins: true
+      plugins: true,
+      preload: path.join(__dirname, 'preload.js')
     }
   });
   win.loadURL('https://tweetdeck.twitter.com/');
-	win.maximize();
   return win;
 }
 
 app.on('ready', function() {
   mainWindow = createMainWindow();
+  mainWindow.maximize();
 
   // Menu
-  var appMenu = menu.createMenu(menu.getMenuTemplate());
+  appMenu = menu.createMenu(menu.getMenuTemplate());
 
   // Tray
   var appTray = tray.createTray(iconPath, appMenu.items[0].submenu);

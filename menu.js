@@ -4,6 +4,11 @@ exports.getMenuTemplate = function () {
     role: 'window',
     submenu: [
       {
+        label: 'Reload',
+        accelerator: 'Ctrl+R',
+        click() { mainWindow.reload(); }
+      },
+      {
         label: 'Quit',
         accelerator: 'Ctrl+Q',
         click() { app.quit(); }
