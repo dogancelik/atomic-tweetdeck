@@ -5,7 +5,7 @@
 * No modifications, just a web window.
 * Made specifically for Windows.
 * Has Tray, double click to show window, right click opens a menu.
-* <kbd>Ctrl+Q</kbd> closes app.
+* <kbd>Ctrl+Q</kbd> closes app, <kbd>Ctrl+W</kbd> hides window, <kbd>Ctrl+R</kbd> reloads page.
 * Minimize to hide to tray.
 
 ## Download
@@ -25,7 +25,7 @@ or you can just start with *electron-prebuilt*:
 
 ```
 npm install -g electron-prebuilt
-electron .
+npm run start
 ```
 
 ## To-do
