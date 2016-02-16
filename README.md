@@ -4,9 +4,10 @@
 
 * No modifications, just a web window.
 * Made specifically for Windows.
-* Has Tray, double click to show window, right click opens a menu.
+* Double click Tray to show window, right click opens a menu.
 * <kbd>Ctrl+Q</kbd> closes app, <kbd>Ctrl+W</kbd> hides window, <kbd>Ctrl+R</kbd> reloads page.
 * Minimize to hide to tray.
+* Copy link and image address to clipboard with right click menu.
 
 ## Download
 
@@ -27,7 +28,3 @@ or you can just start with *electron-prebuilt*:
 npm install -g electron-prebuilt
 npm run start
 ```
-
-## To-do
-
-* Right click to copy links
