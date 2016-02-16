@@ -18,7 +18,7 @@ exports.CustomMenu = function (template, model) {
           role: tplItem.role,
           selector: tplItem.selector,
           click: function (item, win) {
-            tplItem.click(m.getModel(), item, win)
+            tplItem.click(_ret.getModel(), item, win)
           },
           submenu: Array.isArray(tplItem.submenu) ? new Menu() : null
         })

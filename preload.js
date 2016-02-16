@@ -1,5 +1,6 @@
 const remote = require('electron').remote;
 const url = remote.require('url');
+const clipboard = remote.clipboard;
 const shared = require('./shared');
 
 //remote.getCurrentWindow().toggleDevTools();
