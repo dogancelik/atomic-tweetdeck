@@ -2,8 +2,8 @@ exports.createMutex = function () {
   var shouldQuit = app.makeSingleInstance(function() {
     if (mainWindow) {
       if (mainWindow.isMinimized()) {
+        mainWindow.restore();
         mainWindow.show();
-        mainWindow.maximize();
         mainWindow.focus();
       }
     }

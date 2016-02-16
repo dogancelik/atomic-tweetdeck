@@ -1,5 +1,6 @@
 function showWindow () {
-  mainWindow.focus();
+  mainWindow.restore();
+  mainWindow.show();
 }
 
 exports.createTray = function (iconPath, menu) {

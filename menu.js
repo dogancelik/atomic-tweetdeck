@@ -9,6 +9,11 @@ exports.getMenuTemplate = function () {
         click() { mainWindow.reload(); }
       },
       {
+        label: 'Hide',
+        accelerator: 'Ctrl+W',
+        role: 'minimize'
+      },
+      {
         label: 'Quit',
         accelerator: 'Ctrl+Q',
         click() { app.quit(); }
