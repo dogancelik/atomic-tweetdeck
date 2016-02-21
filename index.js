@@ -1,6 +1,8 @@
 GLOBAL.electron = require('electron');
 GLOBAL.app = GLOBAL.electron.app;
 
+const package = require('./package.json');
+const Configstore = require('configstore');
 const path = require('path');
 const utils = require('./utils');
 const mutex = require('./mutex');
@@ -9,6 +11,7 @@ const menu = require('./menu');
 
 GLOBAL.mainWindow = null;
 GLOBAL.appMenu = null;
+GLOBAL.config = new Configstore(package.name, { openBrowser: true });
 
 const iconPath = utils.getIconPath();
 
@@ -38,6 +41,7 @@ app.on('ready', function() {
 
   // Menu
   appMenu = menu.createMenu(menu.getMenuTemplate());
+  appMenu.items[1].submenu.items[0].checked = config.get('openBrowser');
 
   // Tray
   var appTray = tray.createTray(iconPath, appMenu.items[0].submenu);

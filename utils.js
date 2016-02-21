@@ -1,6 +1,8 @@
 exports.newWindow = function (e, url) {
-  e.preventDefault();
-  GLOBAL.electron.shell.openExternal(url);
+  if (config.get('openBrowser')) {
+    e.preventDefault();
+    GLOBAL.electron.shell.openExternal(url);
+  }
 };
 
 exports.windowAllClosed = function () {

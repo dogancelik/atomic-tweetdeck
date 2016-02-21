@@ -15,14 +15,14 @@
 
 ## Build
 
-You can build the source with:
+You can build the source with *electron-packager*:
 
 ```
+npm install -g electron-packager
 npm run build
 ```
 
 or you can just start with *electron-prebuilt*:
-
 
 ```
 npm install -g electron-prebuilt

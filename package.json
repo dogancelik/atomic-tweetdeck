@@ -1,7 +1,8 @@
 {
   "name": "atomic-tweetdeck",
   "productName": "Atomic TweetDeck",
-  "version": "0.3.1",
+  "version": "0.4.0",
+  "license": "MIT",
   "main": "index.js",
   "electronVersion": "0.36.7",
   "scripts": {
@@ -16,5 +17,8 @@
   },
   "devDependencies": {
     "electron-prebuilt": "^0.34.0"
+  },
+  "dependencies": {
+    "configstore": "^1.4.0"
   }
 }
