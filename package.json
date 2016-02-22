@@ -1,10 +1,10 @@
 {
   "name": "atomic-tweetdeck",
   "productName": "Atomic TweetDeck",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "license": "MIT",
   "main": "index.js",
-  "electronVersion": "0.36.7",
+  "electronVersion": "0.36.8",
   "scripts": {
     "start": "electron index.js",
     "build": "build.bat build",
@@ -14,9 +14,6 @@
     "zip:lin": "npm run zip:tar -- linux",
     "zip:win": "npm run zip:zip -- win32",
     "zip": "npm run zip:osx && npm run zip:lin && npm run zip:win"
-  },
-  "devDependencies": {
-    "electron-prebuilt": "^0.34.0"
   },
   "dependencies": {
     "configstore": "^1.4.0"

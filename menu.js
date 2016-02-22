@@ -15,7 +15,7 @@ exports.getMenuTemplate = function () {
       {
         label: '&Reload',
         accelerator: 'CmdOrCtrl+R',
-        click() { mainWindow.reload(); }
+        click(item, wnd) { wnd.reload(); }
       },
       {
         label: '&Hide',

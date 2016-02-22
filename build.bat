@@ -7,7 +7,7 @@ if "%1" == "zip" goto zip
 goto eof
 
 :build
-electron-packager . %npm_package_name% --platform=all --arch=x64 --version=%npm_package_electronVersion% --out=build --ignore="build"  --app-version="%npm_package_version%" --version-string.FileDescription="%npm_package_productName%" --version-string.ProductName="%npm_package_productName%" --overwrite
+electron-packager . %npm_package_name% --platform=all --arch=x64 --version=%npm_package_electronVersion% --out=build --ignore="build"  --app-version="%npm_package_version%" --version-string.FileDescription="%npm_package_productName%" --version-string.ProductName="%npm_package_productName%" --icon=favicon.ico --overwrite
 
 goto eof
 
