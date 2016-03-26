@@ -5,25 +5,25 @@ function showWindow () {
   mainWindow.show();
 }
 
-function hideWindow() {
+function hideWindow () {
   mainWindow.minimize();
+}
+
+function toggleWindow () {
+  if (mainWindow.isVisible()) {
+    hideWindow();
+  } else {
+    showWindow();
+  }
 }
 
 exports.createMenu = function () {
   var template = [{
     label: '&Toggle',
-    click() {
-      if (mainWindow.isVisible()) {
-        hideWindow();
-      } else {
-        showWindow();
-      }
-    }
+    click() { toggleWindow(); }
   }, {
     label: '&Reload',
-    click() {
-      mainWindow.reload();
-    }
+    click() { mainWindow.reload(); }
   }, {
     label: '&Quit',
     click() { app.quit(); }
@@ -34,8 +34,8 @@ exports.createMenu = function () {
 
 exports.createTray = function (iconPath, menu) {
   var tray = new GLOBAL.electron.Tray(iconPath);
-  tray.setToolTip('TweetDeck');
+  tray.setToolTip(GLOBAL.app.getName());
   tray.setContextMenu(menu);
-  tray.on('double-click', showWindow);
+  tray.on('double-click', toggleWindow);
   return tray;
 };

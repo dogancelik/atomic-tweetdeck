@@ -43,7 +43,23 @@ function getLinkType (el) {
 
 function getContextMenuTemplate () {
   return [{
-    label: 'Copy link address',
+    label: 'Copy &page address',
+    click: function (model) {
+      return clipboard.writeText(model.window.location.href);
+    },
+    visible: function (model) {
+      return !model.text && !model.link && !model.img;
+    }
+  }, {
+    label: 'Copy selected &text',
+    click: function (model) {
+      return clipboard.writeText(model.text);
+    },
+    visible: function (model) {
+      return !!model.text;
+    }
+  }, {
+    label: 'Copy &link address',
     click: function (model) {
       return model.link && clipboard.writeText(model.link.href)
     },
@@ -51,7 +67,7 @@ function getContextMenuTemplate () {
       return model.link && model.link.type === 'external'
     }
   }, {
-    label: 'Copy image address',
+    label: 'Copy &image address',
     click: function (model) {
       return model.img && clipboard.writeText(model.img.href)
     },
@@ -68,16 +84,17 @@ function openContextMenu (e) {
 
   var wnd = remote.getCurrentWindow();
   var sel = window.getSelection();
-  var selText = sel && sel.toString();
+  var selText = sel.toString();
   var el = document.elementFromPoint(e.x, e.y) || null;
 
   contextMenu.update({
     x: e.x,
     y: e.y,
-    selection: selText,
-    element: el,
+    text: selText,
+    el: el,
     link: getLinkType(findClosestLink(el)),
-    img: getLinkType(findClosestImage(el))
+    img: getLinkType(findClosestImage(el)),
+    window: window
   });
 
   contextMenu.getMenu().popup(wnd);
