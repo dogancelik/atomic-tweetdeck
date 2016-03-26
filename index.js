@@ -44,7 +44,7 @@ app.on('ready', function() {
   appMenu.items[1].submenu.items[0].checked = config.get('openBrowser');
 
   // Tray
-  var appTray = tray.createTray(iconPath, appMenu.items[0].submenu);
+  var appTray = tray.createTray(iconPath, tray.createMenu());
   mainWindow.on('minimize', utils.hideToTray);
 
   // New Windows
