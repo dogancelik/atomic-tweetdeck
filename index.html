@@ -14,6 +14,7 @@
             <p><img class="img-responsive center-block" src="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" alt="Atomic TweetDeck"></p>
             <h1>Atomic TweetDeck</h1>
             <p>A TweetDeck app that you can fit in your pocket!</p>
+            <p>Latest version: <span id="version"></span></p>
             <p>
               <ul id="downloads" class="list-inline">
                 <li><a class="btn btn-lg btn-default" href="https://github.com/dogancelik/atomic-tweetdeck">Github</a></li>
@@ -28,15 +29,17 @@
   <script type="text/javascript">
     var urlRelease = 'https://api.github.com/repos/dogancelik/atomic-tweetdeck/releases/latest';
     var downloads = $('#downloads');
+    var version = $('#version');
 
     $.getJSON(urlRelease, function (obj) {
+      version.html('<span class="label label-info">'+obj.tag_name+'</span>');
       for (var i = 0; i < obj.assets.length; i++) {
         var asset = obj.assets[i];
         var releaseName = '';
         if (asset.name.indexOf('darwin-x64') > -1) releaseName = 'Mac OS X (64-bit)';
         if (asset.name.indexOf('linux-x64') > -1) releaseName = 'Linux (64-bit)';
         if (asset.name.indexOf('win32-x64') > -1) releaseName = 'Windows (64-bit)';
-        downloads.prepend('<li><a class="btn btn-lg btn-primary" href="'+asset.browser_download_url+'">Download '+releaseName+'</a></li>')
+        downloads.prepend('<li><a class="btn btn-lg btn-primary" href="'+asset.browser_download_url+'">Download '+releaseName+'</a></li>');
       }
     });
   </script>
