@@ -1,3 +1,6 @@
+const path = require('path');
+const fs = require('fs');
+
 exports.newWindow = function (e, url) {
   if (config.get('openBrowser')) {
     e.preventDefault();
@@ -41,4 +44,9 @@ exports.handleRedirections = function () {
     setTimeout(()=>this.loadURL(arguments[2]), 100);
     arguments[0].preventDefault();
   }
+};
+
+exports.loadUserCss = function () {
+  var filePath = path.join(__dirname, './user.css');
+  fs.readFile(filePath, (err, data) => !err && this.insertCSS(data.toString()));
 };

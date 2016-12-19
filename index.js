@@ -54,6 +54,9 @@ app.on('ready', function() {
   // Handle 2FA
   page.on('did-get-redirect-request', utils.handleRedirections.bind(mainWindow));
 
+  // Inject user CSS
+  page.on('dom-ready', utils.loadUserCss);
+
   // Quit
   app.on('window-all-closed', utils.windowAllClosed);
   app.on('will-quit', utils.beforeQuit);
