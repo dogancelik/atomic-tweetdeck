@@ -51,6 +51,9 @@ app.on('ready', function() {
   const page = mainWindow.webContents;
   page.on('new-window', utils.newWindow);
 
+  // Handle 2FA
+  page.on('did-get-redirect-request', utils.handleRedirections.bind(mainWindow));
+
   // Quit
   app.on('window-all-closed', utils.windowAllClosed);
   app.on('will-quit', utils.beforeQuit);

@@ -1,7 +1,7 @@
 exports.newWindow = function (e, url) {
   if (config.get('openBrowser')) {
     e.preventDefault();
-    GLOBAL.electron.shell.openExternal(url);
+    global.electron.shell.openExternal(url);
   }
 };
 
@@ -14,7 +14,7 @@ exports.hideToTray = function () {
 };
 
 exports.beforeQuit = function () {
-  GLOBAL.electron.globalShortcut.unregisterAll();
+  global.electron.globalShortcut.unregisterAll();
 };
 
 exports.getIconPath = function () {
@@ -33,4 +33,12 @@ exports.getIconPath = function () {
 
   }
   return __dirname + '/favicon' + iconExt;
-}
+};
+
+exports.handleRedirections = function () {
+  // Related: https://github.com/electron/electron/issues/3471#issuecomment-236368409
+  if (arguments[3]) {
+    setTimeout(()=>this.loadURL(arguments[2]), 100);
+    arguments[0].preventDefault();
+  }
+};
