@@ -1,5 +1,5 @@
-GLOBAL.electron = require('electron');
-GLOBAL.app = GLOBAL.electron.app;
+global.electron = require('electron');
+global.app = global.electron.app;
 
 const package = require('./package.json');
 const Configstore = require('configstore');
@@ -9,16 +9,16 @@ const mutex = require('./mutex');
 const tray = require('./tray');
 const menu = require('./menu');
 
-GLOBAL.mainWindow = null;
-GLOBAL.appMenu = null;
-GLOBAL.config = new Configstore(package.name, { openBrowser: true });
+global.mainWindow = null;
+global.appMenu = null;
+global.config = new Configstore(package.name, { openBrowser: true });
 
 const iconPath = utils.getIconPath();
 
 mutex.createMutex();
 
 function createMainWindow () {
-  const win = new GLOBAL.electron.BrowserWindow({
+  const win = new global.electron.BrowserWindow({
     title: app.getName(),
     minWidth: 400,
     minHeight: 400,

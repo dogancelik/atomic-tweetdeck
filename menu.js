@@ -1,11 +1,11 @@
 const URL_WEBSITE = 'https://dogancelik.com/atomic-tweetdeck/';
 const URL_ISSUES = 'https://github.com/dogancelik/atomic-tweetdeck/issues';
 
-const appName = GLOBAL.electron.app.getName();
-const appVersion = GLOBAL.electron.app.getVersion();
+const appName = global.electron.app.getName();
+const appVersion = global.electron.app.getVersion();
 
-const shell = GLOBAL.electron.shell;
-const dialog = GLOBAL.electron.dialog;
+const shell = global.electron.shell;
+const dialog = global.electron.dialog;
 
 exports.getMenuTemplate = function () {
   return [{
@@ -51,7 +51,7 @@ exports.getMenuTemplate = function () {
       {
         label: '&About ' + appName,
         click() {
-          dialog.showMessageBox(GLOBAL.mainWindow, {
+          dialog.showMessageBox(global.mainWindow, {
             buttons: ['OK'],
             title: 'About ' + appName,
             message: appName + ' v' + appVersion
@@ -63,7 +63,7 @@ exports.getMenuTemplate = function () {
 };
 
 exports.createMenu = function (template) {
-  const Menu = GLOBAL.electron.Menu;
+  const Menu = global.electron.Menu;
   var menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
   return menu;

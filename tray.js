@@ -1,4 +1,4 @@
-const Menu = GLOBAL.electron.Menu;
+const Menu = global.electron.Menu;
 
 function showWindow () {
   mainWindow.restore();
@@ -33,8 +33,8 @@ exports.createMenu = function () {
 }
 
 exports.createTray = function (iconPath, menu) {
-  var tray = new GLOBAL.electron.Tray(iconPath);
-  tray.setToolTip(GLOBAL.app.getName());
+  var tray = new global.electron.Tray(iconPath);
+  tray.setToolTip(global.app.getName());
   tray.setContextMenu(menu);
   tray.on('double-click', toggleWindow);
   return tray;
