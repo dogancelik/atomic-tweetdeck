@@ -20,7 +20,13 @@ exports.getMenuTemplate = function () {
       {
         label: '&Hide',
         accelerator: 'CmdOrCtrl+W',
-        role: 'minimize'
+        click(item, wnd) {
+          if (wnd.getParentWindow() == null) {
+            wnd.minimize();
+          } else {
+            wnd.close();
+          }
+        }
       },
       {
         label: '&Quit',

@@ -1,10 +1,15 @@
 const path = require('path');
 const fs = require('fs');
 
-exports.newWindow = function (e, url) {
+exports.newWindow = function (e, url, frame, dis, opts) {
   if (config.get('openBrowser')) {
     e.preventDefault();
     global.electron.shell.openExternal(url);
+  } else {
+    let size = global.mainWindow.getSize();
+    opts.parent = global.mainWindow;
+    opts.width = size[0];
+    opts.height = size[1];
   }
 };
 
