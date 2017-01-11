@@ -12,6 +12,7 @@ const menu = require('./menu');
 global.mainWindow = null;
 global.appMenu = null;
 global.config = new Configstore(package.name, { openBrowser: true });
+global.preloadPath = path.join(__dirname, 'preload.js');
 
 const iconPath = utils.getIconPath();
 
@@ -28,7 +29,7 @@ function createMainWindow () {
       nodeIntegration: false,
       webSecurity: false,
       plugins: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: preloadPath,
     }
   });
   win.loadURL('https://tweetdeck.twitter.com/');

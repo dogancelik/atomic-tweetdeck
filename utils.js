@@ -10,6 +10,7 @@ exports.newWindow = function (e, url, frame, dis, opts) {
     opts.parent = global.mainWindow;
     opts.width = size[0];
     opts.height = size[1];
+    opts.webPreferences.preload = global.preloadPath;
   }
 };
 
