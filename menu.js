@@ -37,6 +37,20 @@ exports.getMenuTemplate = function () {
       }
     ]
   }, {
+    label: 'Hi&story',
+    submenu: [
+      {
+        label: 'Go back',
+        accelerator: 'Alt+Left',
+        click(item, wnd) { wnd.webContents.canGoBack() && wnd.webContents.goBack(); }
+      },
+      {
+        label: 'Go forward',
+        accelerator: 'Alt+Right', // Insert smug Pepe here
+        click(item, wnd) { wnd.webContents.canGoForward() && wnd.webContents.goForward(); }
+      }
+    ]
+  }, {
     label: 'Settings',
     submenu: [
       {
