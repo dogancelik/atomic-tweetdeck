@@ -7,6 +7,8 @@ const appVersion = global.electron.app.getVersion();
 const shell = global.electron.shell;
 const dialog = global.electron.dialog;
 
+const { getAboutMessage } = require('./utils');
+
 exports.getMenuTemplate = function () {
   return [{
     label: '&Window',
@@ -60,7 +62,7 @@ exports.getMenuTemplate = function () {
           dialog.showMessageBox(global.mainWindow, {
             buttons: ['OK'],
             title: 'About ' + appName,
-            message: appName + ' v' + appVersion
+            message: getAboutMessage(appName, appVersion)
           })
         }
       }

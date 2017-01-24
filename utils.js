@@ -56,3 +56,10 @@ exports.loadUserCss = function () {
   var filePath = path.join(__dirname, './user.css');
   fs.readFile(filePath, (err, data) => !err && this.insertCSS(data.toString()));
 };
+
+exports.getAboutMessage = function (appName, appVersion) {
+  let { electron, chrome } = process.versions;
+  return appName + ' version: ' + appVersion + '\n' +
+    'Electron version: ' + electron + '\n' +
+    'Chrome version: ' + chrome;
+};
