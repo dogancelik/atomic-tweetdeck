@@ -16,7 +16,7 @@ class MyBrowserWindow extends global.electron.BrowserWindow {
 }
 
 exports.newWindow = function (e, url, frame, dis, opts) {
-  if (config.get('openBrowser')) {
+  if (config.store.get(config.names.openBrowser)) {
     e.preventDefault();
     global.electron.shell.openExternal(url);
   } else {
