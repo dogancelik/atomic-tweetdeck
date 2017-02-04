@@ -10,41 +10,88 @@
   <meta name="twitter:image" content="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" />
   <meta name="twitter:image:alt" content="Screenshot of Atomic TweetDeck" />
   <title>Atomic TweetDeck</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <style type="text/css">
+    body {
+      padding-top: 20px;
+    }
+
+    #downloads li {
+      margin-bottom: 10px;
+    }
+
+    #version, #published {
+      font-size: 1.1em;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding-top: 5px;
+      border-top: 1px solid #ddd;
+      font-size: 10px;
+      text-align: right;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="jumbotron text-center">
-            <p><img class="img-responsive center-block" src="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" alt="Atomic TweetDeck"></p>
-            <h1>Atomic TweetDeck</h1>
-            <p>A TweetDeck app that you can fit in your pocket!</p>
-            <p>Latest version: <span id="version"></span></p>
-            <div>
-              <ul id="downloads" class="list-inline">
-                <li><a class="btn btn-lg btn-default" href="https://github.com/dogancelik/atomic-tweetdeck">Github</a></li>
-              </ul>
-            </div>
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+        <p><img class="img-responsive center-block" src="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" alt="Atomic TweetDeck"></p>
+        <h1>Atomic TweetDeck</h1>
+        <p>A TweetDeck app that you can fit in your pocket!</p>
+        <a href="https://github.com/dogancelik/atomic-tweetdeck">
+          Visit project page at <i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+        <h2>Latest Version</h2>
+        <p>Version <span id="version" class="label label-info"></span>
+          was published <span id="published" class="label label-info"></span></p>
+        <h3>Changes</h3>
+        <div id="changes" class="text-left">
+        </div>
+        <h3>Download</h3>
+        <div>
+          <ul id="downloads" class="list-inline"></ul>
         </div>
       </div>
     </div>
+    <footer>
+      A project by <a href="https://dogancelik.com/">Doğan Çelik</a>
+    </footer>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js" integrity="sha256-Gn7MUQono8LUxTfRA0WZzJgTua52Udm1Ifrk5421zkA=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js" integrity="sha256-Ozn2oGNuZCAwNPm576JyAxR8uyj6bRnQFSGNVQ5X6ro=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript">
+    var md = window.markdownit();
     var urlRelease = 'https://api.github.com/repos/dogancelik/atomic-tweetdeck/releases/latest';
     var downloads = $('#downloads');
+    var changes = $('#changes');
+
     var version = $('#version');
+    var published = $('#published');
+
+    function icon (name) {
+      return '<i class="fa fa-'+name+'" aria-hidden="true"></i>';
+    }
 
     $.getJSON(urlRelease, function (obj) {
-      version.html('<span class="label label-info">'+obj.tag_name+'</span>');
+      version.text(obj.tag_name);
+      published.text(moment(obj.published_at).fromNow());
+
+      changes.html(md.render(obj.body));
+      changes.find('p').remove();
+      changes.find('table').addClass('table');
       for (var i = 0; i < obj.assets.length; i++) {
         var asset = obj.assets[i];
         var releaseName = '';
-        if (asset.name.indexOf('darwin-x64') > -1) releaseName = 'Mac OS X (64-bit)';
-        if (asset.name.indexOf('linux-x64') > -1) releaseName = 'Linux (64-bit)';
-        if (asset.name.indexOf('win32-x64') > -1) releaseName = 'Windows (64-bit)';
-        downloads.prepend('<li><a class="btn btn-lg btn-primary" href="'+asset.browser_download_url+'">Download '+releaseName+'</a></li>');
+        if (asset.name.indexOf('darwin-x64') > -1) releaseName = icon('apple') + ' Mac OS X (64-bit)';
+        if (asset.name.indexOf('linux-x64') > -1) releaseName = icon('linux') + ' Linux (64-bit)';
+        if (asset.name.indexOf('win32-x64') > -1) releaseName = icon('windows') + ' Windows (64-bit)';
+        downloads.prepend('<li><a class="btn btn-default" href="'+asset.browser_download_url+'">'+releaseName+'</a></li>');
       }
     });
   </script>
