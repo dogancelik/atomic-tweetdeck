@@ -22,9 +22,9 @@ npm install -g electron-packager
 npm run build
 ```
 
-or you can just start with *electron-prebuilt*:
+or you can just start with *electron*:
 
 ```
-npm install -g electron-prebuilt
+npm install -g electron
 npm run start
 ```
