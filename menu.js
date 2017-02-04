@@ -33,7 +33,13 @@ exports.getMenuTemplate = function () {
       {
         label: '&Quit',
         accelerator: 'CmdOrCtrl+Q',
-        click() { global.app.exit(); }
+        click() {
+          // app.exit() crashes Electron on child window
+          // can't do app.quit() if Close to Tray
+          // this will work because windowAllClosed
+          Array.prototype.slice.call(global.electron.BrowserWindow.getAllWindows())
+            .forEach((wnd) => wnd.destroy());
+        }
       }
     ]
   }, {
