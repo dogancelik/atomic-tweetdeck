@@ -1,8 +1,6 @@
 global.electron = require('electron');
 global.app = global.electron.app;
 
-const package = require('./package.json');
-const Configstore = require('configstore');
 const path = require('path');
 const utils = require('./utils');
 const mutex = require('./mutex');
@@ -11,7 +9,7 @@ const menu = require('./menu');
 
 global.mainWindow = null;
 global.appMenu = null;
-global.config = new Configstore(package.name, { openBrowser: true });
+global.config = require('./config');
 global.preloadPath = path.join(__dirname, 'preload.js');
 
 const iconPath = utils.getIconPath();
@@ -42,11 +40,12 @@ app.on('ready', function() {
 
   // Menu
   appMenu = menu.createMenu(menu.getMenuTemplate());
-  appMenu.items[1].submenu.items[0].checked = config.get('openBrowser');
+  menu.setMenuChecks(appMenu);
 
   // Tray
   var appTray = tray.createTray(iconPath, tray.createMenu());
-  mainWindow.on('minimize', utils.hideToTray);
+  mainWindow.on('minimize', (e) => utils.hideToTray('minimize', e));
+  mainWindow.on('close', (e) => utils.hideToTray('close', e));
 
   // New Windows
   const page = mainWindow.webContents;

@@ -31,8 +31,15 @@ exports.windowAllClosed = function () {
   app.quit();
 };
 
-exports.hideToTray = function () {
-  mainWindow.hide();
+exports.hideToTray = function (action, event) {
+  if (action == 'minimize' && config.store.get(config.names.minToTray)) {
+    event.sender.hide();
+  }
+
+  if (action == 'close' && !config.store.get(config.names.minToTray)) {
+    event.sender.hide();
+    event.preventDefault();
+  }
 };
 
 exports.beforeQuit = function () {

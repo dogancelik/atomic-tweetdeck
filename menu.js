@@ -33,7 +33,7 @@ exports.getMenuTemplate = function () {
       {
         label: '&Quit',
         accelerator: 'CmdOrCtrl+Q',
-        click() { app.quit(); }
+        click() { global.app.exit(); }
       }
     ]
   }, {
@@ -56,7 +56,12 @@ exports.getMenuTemplate = function () {
       {
         label: 'Open new windows in default browser',
         type: 'checkbox',
-        click() { config.set('openBrowser', !config.get('openBrowser')); }
+        click() { config.store.set(config.names.openBrowser, !config.store.get(config.names.openBrowser)); }
+      },
+      {
+        label: 'Minimize to Tray',
+        type: 'checkbox',
+        click() { config.store.set(config.names.minToTray, !config.store.get(config.names.minToTray)); }
       }
     ]
   }, {
@@ -89,4 +94,9 @@ exports.createMenu = function (template) {
   var menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
   return menu;
+};
+
+exports.setMenuChecks = function (appMenu) {
+  appMenu.items[2].submenu.items[0].checked = config.store.get(config.names.openBrowser);
+  appMenu.items[2].submenu.items[1].checked = config.store.get(config.names.minToTray);
 };

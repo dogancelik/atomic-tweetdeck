@@ -1,7 +1,10 @@
 const Menu = global.electron.Menu;
 
 function showWindow () {
-  mainWindow.restore();
+  // restore() removes maximized state if window is not minimized but hidden
+  if (mainWindow.isMinimized()) {
+    mainWindow.restore();
+  }
   mainWindow.show();
 }
 
