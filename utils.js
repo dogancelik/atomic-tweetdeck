@@ -1,16 +1,29 @@
 const path = require('path');
 const fs = require('fs');
 
+class MyBrowserWindow extends global.electron.BrowserWindow {
+  constructor (opts) {
+    let size = global.mainWindow.getSize();
+    super({
+      parent: global.mainWindow,
+      width: size[0],
+      height: size[1],
+      webPreferences: {
+        preload: global.preloadPath
+      },
+    });
+  }
+}
+
 exports.newWindow = function (e, url, frame, dis, opts) {
   if (config.get('openBrowser')) {
     e.preventDefault();
     global.electron.shell.openExternal(url);
   } else {
-    let size = global.mainWindow.getSize();
-    opts.parent = global.mainWindow;
-    opts.width = size[0];
-    opts.height = size[1];
-    opts.webPreferences.preload = global.preloadPath;
+    e['newGuest'] = new MyBrowserWindow();
+    e['newGuest'].webContents.on('new-window', exports.newWindow);
+    e['newGuest'].loadURL(url);
+    e.preventDefault();
   }
 };
 
