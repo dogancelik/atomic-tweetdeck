@@ -6,7 +6,7 @@
   "main": "index.js",
   "electronVersion": "1.4.15",
   "scripts": {
-    "start": "electron index.js",
+    "start": "electron .",
     "build": "build.bat build",
     "zip:zip": "build.bat zip",
     "zip:tar": "build.bat tar",

@@ -6,7 +6,7 @@
 * Made specifically for Windows.
 * Double click Tray to show window, right click opens a menu.
 * <kbd>Ctrl+Q</kbd> closes app, <kbd>Ctrl+W</kbd> hides window, <kbd>Ctrl+R</kbd> reloads page.
-* Minimize to hide to tray.
+* Minimize *or* close to hide to tray.
 * Copy page, link or image address to clipboard with right click menu.
 
 ## Download
