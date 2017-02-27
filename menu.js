@@ -15,6 +15,12 @@ exports.getMenuTemplate = function () {
     role: 'window',
     submenu: [
       {
+        visible: false,
+        label: 'Toggle &DevTools',
+        accelerator: 'F12',
+        click(item, wnd) { wnd.webContents.toggleDevTools(); }
+      },
+      {
         label: '&Reload',
         accelerator: 'CmdOrCtrl+R',
         click(item, wnd) { wnd.reload(); }
