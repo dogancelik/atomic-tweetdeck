@@ -22,6 +22,7 @@ function createMainWindow () {
     minWidth: 400,
     minHeight: 400,
     titleBarStyle: 'hidden-inset',
+    autoHideMenuBar: config.store.get(config.names.hideMenu),
     icon: iconPath,
     webPreferences: {
       nodeIntegration: false,

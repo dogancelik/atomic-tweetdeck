@@ -74,6 +74,15 @@ exports.getMenuTemplate = function () {
         label: 'Minimize to Tray',
         type: 'checkbox',
         click() { config.store.set(config.names.minToTray, !config.store.get(config.names.minToTray)); }
+      },
+      {
+        label: 'Hide menu',
+        type: 'checkbox',
+        click(item, wnd) {
+          let newValue = !config.store.get(config.names.hideMenu);
+          wnd.setAutoHideMenuBar(newValue);
+          config.store.set(config.names.hideMenu, newValue);
+        }
       }
     ]
   }, {
@@ -111,4 +120,5 @@ exports.createMenu = function (template) {
 exports.setMenuChecks = function (appMenu) {
   appMenu.items[2].submenu.items[0].checked = config.store.get(config.names.openBrowser);
   appMenu.items[2].submenu.items[1].checked = config.store.get(config.names.minToTray);
+  appMenu.items[2].submenu.items[2].checked = config.store.get(config.names.hideMenu);
 };

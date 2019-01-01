@@ -1,5 +1,7 @@
 exports.createMutex = function () {
-  var shouldQuit = app.makeSingleInstance(function() {
+  const gotLock = app.requestSingleInstanceLock();
+
+  app.on('second-instance', (event, argv, cwd) => {
     if (mainWindow) {
       if (mainWindow.isMinimized()) {
         mainWindow.restore();
@@ -7,11 +9,9 @@ exports.createMutex = function () {
         mainWindow.focus();
       }
     }
-    return true;
   });
 
-  if (shouldQuit) {
-    app.quit();
-    return;
+  if (!gotLock) {
+    return app.quit();
   }
 };
