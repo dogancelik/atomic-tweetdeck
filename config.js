@@ -4,12 +4,20 @@ const Configstore = require('configstore');
 exports.names = {
   openBrowser: 'openBrowser',
   minToTray: 'minToTray',
+  x: 'x',
+  y: 'y',
+  width: 'width',
+  height: 'height',
   hideMenu: 'hideMenu',
 };
 
 exports.defaults = {
   openBrowser: true,
   minToTray: false,
+  x: 0,
+  y: 0,
+  width: 400,
+  height: 400,
   hideMenu: false,
 };
 

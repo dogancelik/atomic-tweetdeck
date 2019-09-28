@@ -19,8 +19,10 @@ mutex.createMutex();
 function createMainWindow () {
   const win = new global.electron.BrowserWindow({
     title: app.getName(),
-    minWidth: 400,
-    minHeight: 400,
+    x: config.store.get(config.names.x),
+    y: config.store.get(config.names.y),
+    width: config.store.get(config.names.width),
+    height: config.store.get(config.names.height),
     titleBarStyle: 'hidden-inset',
     autoHideMenuBar: config.store.get(config.names.hideMenu),
     icon: iconPath,
@@ -37,7 +39,6 @@ function createMainWindow () {
 
 app.on('ready', function() {
   mainWindow = createMainWindow();
-  mainWindow.maximize();
 
   // Menu
   appMenu = menu.createMenu(menu.getMenuTemplate());
