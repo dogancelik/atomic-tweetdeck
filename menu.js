@@ -7,7 +7,7 @@ const appVersion = global.electron.app.getVersion();
 const shell = global.electron.shell;
 const dialog = global.electron.dialog;
 
-const { getAboutMessage } = require('./utils');
+const { getAboutMessage, updateState } = require('./utils');
 
 exports.getMenuTemplate = function () {
   return [{
@@ -43,6 +43,7 @@ exports.getMenuTemplate = function () {
           // app.exit() crashes Electron on child window
           // can't do app.quit() if Close to Tray
           // this will work because windowAllClosed
+          updateState();
           Array.prototype.slice.call(global.electron.BrowserWindow.getAllWindows())
             .forEach((wnd) => wnd.destroy());
         }

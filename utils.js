@@ -83,3 +83,14 @@ exports.getAboutMessage = function (appName, appVersion) {
     'Electron version: ' + electron + '\n' +
     'Chrome version: ' + chrome;
 };
+
+exports.updateState = function () {
+    // Don't throw an error when window was closed
+    try {
+      const winBounds = mainWindow.getBounds();
+      config.store.set(config.names.x, winBounds.x);
+      config.store.set(config.names.y, winBounds.y);
+      config.store.set(config.names.width, winBounds.width);
+      config.store.set(config.names.height, winBounds.height);
+    } catch (err) {}
+}
