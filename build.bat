@@ -37,11 +37,11 @@ cd %BUILD_PATH%
 echo Zip process started
 
 if "%1" == "tar" (
-  del "..\%BUILD_NAME%.tgz" >nul 2>&1
-  7za a -ttar -so -snl "..\%BUILD_NAME%.tar" . | 7za a -si "..\%BUILD_NAME%.tgz" | find /I "ing"
+  del "%BUILD_DIR%%BUILD_NAME%.tgz" >nul 2>&1
+  7za a -ttar -so -snl "%BUILD_DIR%%BUILD_NAME%.tar" . | 7za a -si "%BUILD_DIR%%BUILD_NAME%.tgz" | find /I "ing"
 ) else (
-  del "..\%BUILD_NAME%.zip" >nul 2>&1
-  7za a -tzip "..\%BUILD_NAME%.zip" . | find /I "ing"
+  del "%BUILD_DIR%%BUILD_NAME%.zip" >nul 2>&1
+  7za a -tzip "%BUILD_DIR%%BUILD_NAME%.zip" . | find /I "ing"
 )
 
 echo Zip process finished
