@@ -82,6 +82,7 @@ exports.getMenuTemplate = function () {
         click(item, wnd) {
           let newValue = !config.store.get(config.names.hideMenu);
           wnd.setAutoHideMenuBar(newValue);
+          wnd.setMenuBarVisibility(!newValue);
           config.store.set(config.names.hideMenu, newValue);
         }
       }
