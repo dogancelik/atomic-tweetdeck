@@ -3,8 +3,11 @@
   "productName": "Atomic TweetDeck",
   "version": "0.12.0",
   "license": "MIT",
+  "author": {
+    "name": "Doğan Çelik"
+  },
   "main": "index.js",
-  "electronVersion": "7.1.9",
+  "electronVersion": "8.3.4",
   "scripts": {
     "start": "electron .",
     "build": "build.bat build",
@@ -16,9 +19,10 @@
     "zip": "npm run zip:osx && npm run zip:lin && npm run zip:win"
   },
   "dependencies": {
-    "configstore": "2.x"
+    "configstore": "^5.0.1"
   },
   "devDependencies": {
-    "electron-packager": "^13.0.1"
+    "electron": "^8.3.4",
+    "electron-packager": "^15.0.0"
   }
 }
