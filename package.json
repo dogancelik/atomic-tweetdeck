@@ -24,5 +24,16 @@
   "devDependencies": {
     "electron": "^8.3.4",
     "electron-packager": "^15.0.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "node": true
+    },
+    "globals": {
+      "config": true
+    }
   }
 }
