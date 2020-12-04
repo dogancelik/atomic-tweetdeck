@@ -1,8 +1,18 @@
 @echo off
 
+set "BUILD_DIR=..\build\"
+
 if "%1" == "build" goto build
 if "%1" == "tar" goto zip
 if "%1" == "zip" goto zip
+if "%1" == "clean" goto clean
+
+goto eof
+
+:clean
+
+del "%BUILD_DIR%\*" /F /Q
+for /d %%p in ("%BUILD_DIR%\*") do rd /Q /S "%%p"
 
 goto eof
 
@@ -21,7 +31,6 @@ goto eof
 :zip
 set ZIP_NAME=%~2
 set BUILD_NAME=%npm_package_name%-%ZIP_NAME%-x64
-set "BUILD_DIR=..\build\"
 set "BUILD_PATH=%BUILD_DIR%%BUILD_NAME%"
 
 echo ===============

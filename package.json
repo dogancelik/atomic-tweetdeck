@@ -9,6 +9,7 @@
   "main": "index.js",
   "electronVersion": "8.5.2",
   "scripts": {
+    "clean": "build.bat clean",
     "start": "electron .",
     "build": "build.bat build",
     "zip:zip": "build.bat zip",
