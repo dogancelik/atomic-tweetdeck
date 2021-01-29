@@ -19,7 +19,9 @@ You can build the source with *electron-packager*:
 
 ```
 npm install -g electron-packager
+npm run clean
 npm run build
+npm run zip
 ```
 
 or you can just start with *electron*:
