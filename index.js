@@ -9,6 +9,7 @@ const menu = require('./menu');
 
 global.mainWindow = null;
 global.appMenu = null;
+global.appTray = null;
 global.config = require('./config');
 global.preloadPath = path.join(__dirname, 'preload.js');
 
@@ -45,7 +46,7 @@ app.on('ready', function() {
   menu.setMenuChecks(appMenu);
 
   // Tray
-  var appTray = tray.createTray(iconPath, tray.createMenu());
+  appTray = tray.createTray(iconPath, tray.createMenu());
   mainWindow.on('minimize', (e) => utils.hideToTray('minimize', e));
   mainWindow.on('close', (e) => utils.hideToTray('close', e));
 

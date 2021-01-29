@@ -36,7 +36,7 @@ exports.createMenu = function () {
 }
 
 exports.createTray = function (iconPath, menu) {
-  var tray = new global.electron.Tray(iconPath);
+  let tray = new global.electron.Tray(iconPath);
   tray.setToolTip(global.app.getName());
   tray.setContextMenu(menu);
   tray.on('double-click', toggleWindow);
