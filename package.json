@@ -1,6 +1,5 @@
 {
   "name": "atomic-tweetdeck",
-  "productName": "Atomic TweetDeck",
   "version": "0.14.1",
   "license": "MIT",
   "repository": "github:dogancelik/atomic-tweetdeck",
@@ -8,7 +7,10 @@
     "name": "Doğan Çelik"
   },
   "main": "index.js",
-  "electronVersion": "9.4.0",
+  "config": {
+    "electronVersion": "9.4.0",
+    "productName": "Atomic TweetDeck"
+  },
   "scripts": {
     "clean": "build.bat clean",
     "start": "electron .",

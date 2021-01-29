@@ -19,12 +19,22 @@ goto eof
 :build
 echo ===============
 echo Package name: %npm_package_name%
-echo Electron version: %npm_package_electronVersion%
+echo Electron version: %npm_package_config_electronVersion%
 echo App version: %npm_package_version%
-echo Product name: %npm_package_productName%
+echo Product name: %npm_package_config_productName%
 echo ===============
 
-electron-packager ./ %npm_package_name% --platform=win32,linux,darwin --arch=x64 --electron-version=%npm_package_electronVersion% --no-tmpdir --out=../build --app-version="%npm_package_version%" --version-string.FileDescription="%npm_package_productName%" --version-string.ProductName="%npm_package_productName%" --icon=favicon.ico --overwrite
+electron-packager ./ %npm_package_name% ^
+  --platform=win32,linux,darwin ^
+  --arch=x64 ^
+  --electron-version=%npm_package_config_electronVersion% ^
+  --no-tmpdir ^
+  --out=../build ^
+  --app-version="%npm_package_version%" ^
+  --version-string.FileDescription="%npm_package_config_productName%" ^
+  --version-string.ProductName="%npm_package_config_productName%" ^
+  --icon=favicon.ico ^
+  --overwrite
 
 goto eof
 
