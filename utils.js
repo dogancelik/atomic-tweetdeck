@@ -3,10 +3,7 @@ const fs = require('fs');
 
 class MyBrowserWindow extends global.electron.BrowserWindow {
   constructor (opts) {
-    let size = global.mainWindow.getSize();
     super(Object.assign({
-      width: size[0],
-      height: size[1],
       webPreferences: {
         enableRemoteModule: true,
         nativeWindowOpen: true,
@@ -21,10 +18,26 @@ exports.newWindow = function (e, url, frame, dis, opts) {
     e.preventDefault();
     global.electron.shell.openExternal(url);
   } else {
-    e['newGuest'] = new MyBrowserWindow();
-    e['newGuest'].webContents.on('new-window', exports.newWindow);
-    e['newGuest'].loadURL(url);
     e.preventDefault();
+    const parentWin = global.electron.BrowserWindow.fromWebContents(e.sender),
+      parentBounds = parentWin.getNormalBounds();
+    const win = new MyBrowserWindow({
+      show: false,
+      parentWindow: parentWin,
+      width: parentBounds.width,
+      height: parentBounds.height,
+      x: parentBounds.x,
+      y: parentBounds.y,
+    });
+    e.newGuest = win;
+    win.webContents.on('new-window', exports.newWindow);
+    win.loadURL(url);
+    win.once('ready-to-show', () => {
+      if (parentWin.isMaximized()) {
+        win.maximize();
+      }
+      win.show();
+    });
   }
 };
 
