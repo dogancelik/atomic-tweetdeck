@@ -19,6 +19,7 @@ mutex.createMutex();
 
 function createMainWindow () {
   const win = new global.electron.BrowserWindow({
+    show: false,
     title: app.getName(),
     x: config.store.get(config.names.x),
     y: config.store.get(config.names.y),
@@ -40,6 +41,16 @@ function createMainWindow () {
 
 app.on('ready', function() {
   mainWindow = createMainWindow();
+
+  // Main window events
+  mainWindow.on('maximize', () => config.store.set(config.names.maximized, true));
+  mainWindow.on('unmaximize', () => config.store.set(config.names.maximized, false));
+  mainWindow.once('ready-to-show', () => {
+    if (config.store.get(config.names.maximized)) {
+      mainWindow.maximize();
+    }
+    mainWindow.show();
+  });
 
   // Menu
   appMenu = menu.createMenu(menu.getMenuTemplate());

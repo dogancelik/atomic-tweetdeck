@@ -87,7 +87,7 @@ exports.getAboutMessage = function (appName, appVersion) {
 exports.updateState = function () {
     // Don't throw an error when window was closed
     try {
-      const winBounds = mainWindow.getBounds();
+      const winBounds = mainWindow.getNormalBounds();
       config.store.set(config.names.x, winBounds.x);
       config.store.set(config.names.y, winBounds.y);
       config.store.set(config.names.width, winBounds.width);

@@ -8,6 +8,7 @@ exports.names = {
   y: 'y',
   width: 'width',
   height: 'height',
+  maximized: 'maximized',
   hideMenu: 'hideMenu',
 };
 
@@ -18,6 +19,7 @@ exports.defaults = {
   y: 0,
   width: 400,
   height: 400,
+  maximized: false,
   hideMenu: false,
 };
 
