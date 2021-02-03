@@ -1,6 +1,6 @@
 {
   "name": "atomic-tweetdeck",
-  "version": "0.14.2",
+  "version": "0.15.0",
   "license": "MIT",
   "repository": "github:dogancelik/atomic-tweetdeck",
   "author": {
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "electron": "^10.3.1",
-    "electron-packager": "^15.1.0"
+    "electron-packager": "^15.2.0"
   },
   "eslintConfig": {
     "parserOptions": {
