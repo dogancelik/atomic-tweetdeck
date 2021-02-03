@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "config": {
-    "electronVersion": "9.4.1",
+    "electronVersion": "10.3.1",
     "productName": "Atomic TweetDeck"
   },
   "scripts": {
@@ -26,7 +26,7 @@
     "configstore": "^5.0.1"
   },
   "devDependencies": {
-    "electron": "^9.4.1",
+    "electron": "^10.3.1",
     "electron-packager": "^15.1.0"
   },
   "eslintConfig": {
