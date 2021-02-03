@@ -4,14 +4,15 @@ const fs = require('fs');
 class MyBrowserWindow extends global.electron.BrowserWindow {
   constructor (opts) {
     let size = global.mainWindow.getSize();
-    super({
-      parent: global.mainWindow,
+    super(Object.assign({
       width: size[0],
       height: size[1],
       webPreferences: {
+        enableRemoteModule: true,
+        nativeWindowOpen: true,
         preload: global.preloadPath
       },
-    });
+    }, opts));
   }
 }
 

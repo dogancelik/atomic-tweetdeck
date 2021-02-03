@@ -29,6 +29,8 @@ function createMainWindow () {
     autoHideMenuBar: config.store.get(config.names.hideMenu),
     icon: iconPath,
     webPreferences: {
+      enableRemoteModule: true,
+      nativeWindowOpen: true,
       nodeIntegration: false,
       webSecurity: false,
       plugins: true,
