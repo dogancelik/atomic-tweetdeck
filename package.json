@@ -1,6 +1,7 @@
 {
   "name": "atomic-tweetdeck",
-  "version": "0.15.0",
+  "productName": "Atomic TweetDeck",
+  "version": "0.16.0",
   "license": "MIT",
   "repository": "github:dogancelik/atomic-tweetdeck",
   "author": {
@@ -8,7 +9,7 @@
   },
   "main": "index.js",
   "config": {
-    "electronVersion": "10.3.1",
+    "electronVersion": "10.3.2",
     "productName": "Atomic TweetDeck"
   },
   "scripts": {
@@ -26,7 +27,7 @@
     "configstore": "^5.0.1"
   },
   "devDependencies": {
-    "electron": "^10.3.1",
+    "electron": "^10.3.2",
     "electron-packager": "^15.2.0"
   },
   "eslintConfig": {
