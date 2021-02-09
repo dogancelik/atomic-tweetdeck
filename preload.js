@@ -45,40 +45,24 @@ function getLinkType (el) {
 function getContextMenuTemplate () {
   return [{
     label: 'Copy &page address',
-    click: function (model) {
-      return clipboard.writeText(model.window.location.href);
-    },
-    visible: function (model) {
-      return !model.text && !model.link && !model.img;
-    }
+    click: (model) => clipboard.writeText(model.window.location.href),
+    visible: (model) => !model.text && !model.link && !model.img
   }, {
     label: 'Copy selected &text',
-    click: function (model) {
-      return clipboard.writeText(model.text);
-    },
-    visible: function (model) {
-      return !!model.text;
-    }
+    click: (model) => clipboard.writeText(model.text),
+    visible: (model) => !!model.text
   }, {
     label: 'Copy &link address',
-    click: function (model) {
-      return model.link && clipboard.writeText(model.link.href)
-    },
-    visible: function (model) {
-      return model.link && model.link.type === 'external'
-    }
+    click: (model) => model.link && clipboard.writeText(model.link.href),
+    visible: (model) => model.link && model.link.type === 'external'
   }, {
     label: 'Copy &image',
     click: (model) => model._webContents.copyImageAt(model.x, model.y),
     visible: (model) => model.img
   }, {
     label: 'Copy &image address',
-    click: function (model) {
-      return model.img && clipboard.writeText(model.img.href)
-    },
-    visible: function (model) {
-      return model.img && model.img.type === 'external'
-    }
+    click: (model) => model.img && clipboard.writeText(model.img.href),
+    visible: (model) => model.img && model.img.type === 'external'
   }, {
     label: 'Copy &video address',
     click: (model) => model.video && clipboard.writeText(model.video.href),
