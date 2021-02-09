@@ -77,3 +77,12 @@ function createMenu(template, initialModel) {
 }
 
 exports.CustomMenu = createMenu;
+
+function watchExceptions() {
+  console.log('Watching exceptions on process:', process.type);
+  process.on('uncaughtException', function (err) {
+    console.log('Uncaught Exception', err);
+  });
+}
+
+exports.watchExceptions = watchExceptions;

@@ -6,6 +6,7 @@ const utils = require('./utils');
 const mutex = require('./mutex');
 const tray = require('./tray');
 const menu = require('./menu');
+const shared = require('./shared');
 
 global.mainWindow = null;
 global.appMenu = null;
@@ -77,3 +78,5 @@ app.on('ready', function() {
   app.on('window-all-closed', utils.windowAllClosed);
   app.on('will-quit', utils.beforeQuit);
 });
+
+shared.watchExceptions();

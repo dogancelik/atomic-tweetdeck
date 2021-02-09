@@ -3,6 +3,8 @@ const url = remote.require('url');
 const clipboard = remote.clipboard;
 const shared = require('./shared');
 
+shared.watchExceptions();
+
 //remote.getCurrentWindow().toggleDevTools();
 
 function findClosestNode (nodeName, el) {

@@ -1,7 +1,7 @@
 {
   "name": "atomic-tweetdeck",
   "productName": "Atomic TweetDeck",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "license": "MIT",
   "repository": "github:dogancelik/atomic-tweetdeck",
   "author": {
