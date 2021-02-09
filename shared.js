@@ -66,7 +66,7 @@ function createMenu(template, initialModel) {
     },
 
     update(newModel) {
-      localModel = newModel;
+      Object.assign(localModel, newModel);
       updateMenuItems(this, m.getModel(), template, m.getMenu());
     },
   };

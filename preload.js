@@ -68,6 +68,10 @@ function getContextMenuTemplate () {
       return model.link && model.link.type === 'external'
     }
   }, {
+    label: 'Copy &image',
+    click: (model) => model._webContents.copyImageAt(model.x, model.y),
+    visible: (model) => model.img
+  }, {
     label: 'Copy &image address',
     click: function (model) {
       return model.img && clipboard.writeText(model.img.href)
@@ -82,7 +86,10 @@ function getContextMenuTemplate () {
   }];
 };
 
-var contextMenu = new shared.CustomMenu(getContextMenuTemplate(), {});
+var contextMenu = new shared.CustomMenu(getContextMenuTemplate(), {
+  _window: remote.getCurrentWindow(),
+  _webContents: remote.getCurrentWebContents(),
+});
 
 function openContextMenu (e) {
   e.preventDefault();
