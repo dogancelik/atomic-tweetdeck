@@ -17,6 +17,7 @@ function findClosestNode (nodeName, el) {
 
 const findClosestLink = findClosestNode.bind(null, 'A');
 const findClosestImage = findClosestNode.bind(null, 'IMG');
+const findClosestVideo = findClosestNode.bind(null, 'VIDEO');
 
 function getLinkType (el) {
   if (!el) return null;
@@ -74,6 +75,10 @@ function getContextMenuTemplate () {
     visible: function (model) {
       return model.img && model.img.type === 'external'
     }
+  }, {
+    label: 'Copy &video address',
+    click: (model) => model.video && clipboard.writeText(model.video.href),
+    visible: (model) => model.video && model.video.type === 'external'
   }];
 };
 
@@ -94,6 +99,7 @@ function openContextMenu (e) {
     el: el,
     link: getLinkType(findClosestLink(el)),
     img: getLinkType(findClosestImage(el)),
+    video: getLinkType(findClosestVideo(el)),
     window: window
   });
 
