@@ -5,6 +5,7 @@ set "BUILD_DIR=..\build\"
 if "%1" == "build" goto build
 if "%1" == "tar" goto zip
 if "%1" == "zip" goto zip
+if "%1" == "zip_all" goto zip_all
 if "%1" == "clean" goto clean
 
 goto eof
@@ -38,9 +39,19 @@ electron-packager ./ %npm_package_name% ^
 
 goto eof
 
+:zip_all
+echo Targets: %npm_package_config_zipTargets%
+for %%i in (%npm_package_config_zipTargets%) do (
+  for /F "delims=: tokens=1-3" %%a in ("%%i") do (
+    call :zip %%c %%a %%b
+  )
+)
+
+goto eof
+
 :zip
-set ZIP_NAME=%~2
-set BUILD_NAME=%npm_package_name%-%ZIP_NAME%-x64
+set ZIP_NAME=%~2-%~3
+set BUILD_NAME=%npm_package_name%-%ZIP_NAME%
 set "BUILD_PATH=%BUILD_DIR%%BUILD_NAME%"
 
 echo ===============
@@ -51,11 +62,11 @@ echo Build path: %BUILD_PATH%
 echo ===============
 
 mkdir %BUILD_DIR% >nul 2>&1
-cd %BUILD_PATH%
+pushd %BUILD_PATH%
 
 echo Zip process started
 
-if "%1" == "tar" (
+if "%~1" == "tar" (
   del "%BUILD_DIR%%BUILD_NAME%.tgz" >nul 2>&1
   7za a -ttar -so -snl "%BUILD_DIR%%BUILD_NAME%.tar" . | 7za a -si "%BUILD_DIR%%BUILD_NAME%.tgz" | find /I "ing"
 ) else (
@@ -66,6 +77,7 @@ if "%1" == "tar" (
 echo Zip process finished
 echo ===============
 
-goto eof
+popd
+exit /B 0
 
 :eof

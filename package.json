@@ -12,18 +12,14 @@
     "buildArch": "x64",
     "buildPlatform": "win32,linux,darwin",
     "electronVersion": "10.3.2",
-    "productName": "Atomic TweetDeck"
+    "productName": "Atomic TweetDeck",
+    "zipTargets": "win32:x64:zip linux:x64:tar darwin:x64:tar"
   },
   "scripts": {
     "clean": "build.bat clean",
     "start": "electron .",
     "build": "build.bat build",
-    "zip:zip": "build.bat zip",
-    "zip:tar": "build.bat tar",
-    "zip:osx": "npm run zip:tar -- darwin",
-    "zip:lin": "npm run zip:tar -- linux",
-    "zip:win": "npm run zip:zip -- win32",
-    "zip": "npm run zip:osx && npm run zip:lin && npm run zip:win"
+    "zip": "build.bat zip_all"
   },
   "dependencies": {
     "configstore": "^5.0.1"
