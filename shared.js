@@ -1,8 +1,10 @@
 // Reference from https://github.com/yoshuawuyts/vmd/blob/master/shared/create-menu.js
 const isRenderer = process.type === 'renderer';
 const electron = require('electron');
-const Menu = isRenderer ? electron.remote.Menu : electron.Menu;
-const MenuItem = isRenderer ? electron.remote.MenuItem : electron.MenuItem;
+const sharedElectron = isRenderer ? electron.remote : electron;
+const Menu = sharedElectron.Menu;
+const MenuItem = sharedElectron.MenuItem;
+const BrowserWindow = sharedElectron.BrowserWindow;
 
 function updateMenuItems(m, model, tplArr = [], p) {
   tplArr.forEach((tplItem) => {
@@ -86,3 +88,51 @@ function watchExceptions() {
 }
 
 exports.watchExceptions = watchExceptions;
+
+class MyBrowserWindow extends BrowserWindow {
+  constructor (opts) {
+    super(Object.assign({
+      webPreferences: {
+        enableRemoteModule: true,
+        nativeWindowOpen: true,
+        preload: global.preloadPath
+      },
+    }, opts));
+  }
+}
+
+function NewWindowEvent(parentWindow) {
+  return function onNewWindow(e, url, frame, dis, opts) {
+    if (config.store.get(config.names.openBrowser)) {
+      e.preventDefault();
+      sharedElectron.shell.openExternal(url);
+    } else {
+      e.preventDefault();
+      const bounds = Object.assign({}, e.sender.browserWindowOptions);
+      if (parentWindow) {
+        let parentBounds = parentWindow.getNormalBounds();
+        Object.assign(bounds, parentBounds);
+      }
+
+      const win = new MyBrowserWindow({
+        show: false,
+        parentWindow: parentWindow,
+        width: bounds.width,
+        height: bounds.height,
+        x: bounds.x,
+        y: bounds.y,
+      });
+      e.newGuest = win;
+      win.webContents.on('new-window', NewWindowEvent(win));
+      win.loadURL(url);
+      win.once('ready-to-show', () => {
+        if (parentWindow && parentWindow.isMaximized()) {
+          win.maximize();
+        }
+        win.show();
+      });
+    }
+  };
+}
+
+exports.NewWindowEvent = NewWindowEvent;

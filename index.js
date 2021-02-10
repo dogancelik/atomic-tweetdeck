@@ -66,7 +66,7 @@ app.on('ready', function() {
 
   // New Windows
   const page = mainWindow.webContents;
-  page.on('new-window', utils.newWindow);
+  page.on('new-window', shared.NewWindowEvent(mainWindow));
 
   // Handle 2FA
   page.on('did-get-redirect-request', utils.handleRedirections.bind(mainWindow));

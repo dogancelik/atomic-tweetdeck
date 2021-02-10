@@ -1,46 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 
-class MyBrowserWindow extends global.electron.BrowserWindow {
-  constructor (opts) {
-    super(Object.assign({
-      webPreferences: {
-        enableRemoteModule: true,
-        nativeWindowOpen: true,
-        preload: global.preloadPath
-      },
-    }, opts));
-  }
-}
-
-exports.newWindow = function (e, url, frame, dis, opts) {
-  if (config.store.get(config.names.openBrowser)) {
-    e.preventDefault();
-    global.electron.shell.openExternal(url);
-  } else {
-    e.preventDefault();
-    const parentWin = global.electron.BrowserWindow.fromWebContents(e.sender),
-      parentBounds = parentWin.getNormalBounds();
-    const win = new MyBrowserWindow({
-      show: false,
-      parentWindow: parentWin,
-      width: parentBounds.width,
-      height: parentBounds.height,
-      x: parentBounds.x,
-      y: parentBounds.y,
-    });
-    e.newGuest = win;
-    win.webContents.on('new-window', exports.newWindow);
-    win.loadURL(url);
-    win.once('ready-to-show', () => {
-      if (parentWin.isMaximized()) {
-        win.maximize();
-      }
-      win.show();
-    });
-  }
-};
-
 exports.windowAllClosed = function () {
   app.quit();
 };
