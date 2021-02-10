@@ -17,6 +17,8 @@
 
 You can build the source with *electron-packager*:
 
+You can customize the build process by modifying `buildArch`, `buildPlatform`, `zipTargets` in [package.json](package.json).
+
 ```
 npm install -g electron-packager
 npm run clean
