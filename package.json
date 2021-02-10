@@ -9,6 +9,8 @@
   },
   "main": "index.js",
   "config": {
+    "buildArch": "x64",
+    "buildPlatform": "win32,linux,darwin",
     "electronVersion": "10.3.2",
     "productName": "Atomic TweetDeck"
   },

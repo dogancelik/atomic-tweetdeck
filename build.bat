@@ -25,8 +25,8 @@ echo Product name: %npm_package_config_productName%
 echo ===============
 
 electron-packager ./ %npm_package_name% ^
-  --platform=win32,linux,darwin ^
-  --arch=x64 ^
+  --platform=%npm_package_config_buildPlatform% ^
+  --arch=%npm_package_config_buildArch% ^
   --electron-version=%npm_package_config_electronVersion% ^
   --no-tmpdir ^
   --out=../build ^
