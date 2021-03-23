@@ -1,6 +1,7 @@
 @echo off
 
 set "BUILD_DIR=..\build\"
+set "BUILD_DIR_ART=artifacts\"
 
 if "%1" == "build" goto build
 if "%1" == "tar" goto zip
@@ -30,7 +31,7 @@ electron-packager ./ %npm_package_name% ^
   --arch=%npm_package_config_buildArch% ^
   --electron-version=%npm_package_config_electronVersion% ^
   --no-tmpdir ^
-  --out=../build ^
+  --out=%BUILD_DIR% ^
   --app-version="%npm_package_version%" ^
   --version-string.FileDescription="%npm_package_config_productName%" ^
   --version-string.ProductName="%npm_package_config_productName%" ^
@@ -63,21 +64,31 @@ echo ===============
 
 mkdir %BUILD_DIR% >nul 2>&1
 pushd %BUILD_PATH%
-
 echo Zip process started
 
+setlocal EnableDelayedExpansion
 if "%~1" == "tar" (
-  del "%BUILD_DIR%%BUILD_NAME%.tgz" >nul 2>&1
-  7za a -ttar -so -snl "%BUILD_DIR%%BUILD_NAME%.tar" . | 7za a -si "%BUILD_DIR%%BUILD_NAME%.tgz" | find /I "ing"
+  set "FINAL_EXT=.tgz"
+  del "..\%BUILD_DIR_ART%%BUILD_NAME%!FINAL_EXT!" >nul 2>&1
+  7za a -ttar -so -snl "..\%BUILD_DIR_ART%%BUILD_NAME%.tar" . | 7za a -si "..\%BUILD_DIR_ART%%BUILD_NAME%!FINAL_EXT!" | find /I "ing"
 ) else (
-  del "%BUILD_DIR%%BUILD_NAME%.zip" >nul 2>&1
-  7za a -tzip "%BUILD_DIR%%BUILD_NAME%.zip" . | find /I "ing"
+  set "FINAL_EXT=.zip"
+  del "..\%BUILD_DIR_ART%%BUILD_NAME%!FINAL_EXT!" >nul 2>&1
+  7za a -tzip "..\%BUILD_DIR_ART%%BUILD_NAME%!FINAL_EXT!" . | find /I "ing"
 )
+pushd "..\%BUILD_DIR_ART%"
+echo Hashing: %BUILD_NAME%!FINAL_EXT!
+if not exist "SHA1SUMS.txt" copy /Y nul "SHA1SUMS.txt" >nul
+for /F "delims=" %%a in ('certutil -hashfile "%BUILD_NAME%!FINAL_EXT!" sha1 ^| findstr /V :') do (
+  echo %%a  %BUILD_NAME%!FINAL_EXT! >>"SHA1SUMS.txt"
+)
+endlocal
 
 echo Zip process finished
 echo ===============
-
 popd
+popd
+
 exit /B 0
 
 :eof
