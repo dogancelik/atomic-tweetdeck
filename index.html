@@ -10,8 +10,8 @@
   <meta name="twitter:image" content="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" />
   <meta name="twitter:image:alt" content="Screenshot of Atomic TweetDeck" />
   <title>Atomic TweetDeck</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <style type="text/css">
     body {
       padding-top: 20px;
@@ -19,6 +19,43 @@
 
     #downloads li {
       margin-bottom: 10px;
+    }
+
+    #downloads span {
+      font-weight: bold;
+    }
+
+    #downloads li[data-filename*="win32"] a {
+      border-color: #00A3E1;
+      background-color: #00AEF0;
+    }
+
+    #downloads li[data-filename*="win32"] a:hover {
+      background-color: #0097D3;
+    }
+
+    #downloads li[data-filename*="SHA1SUMS"] a {
+      border-color: #EEEEEE;
+    }
+
+    #downloads li span::before {
+      font: normal normal normal 14px/1 FontAwesome;
+    }
+
+    #downloads li[data-filename*="darwin"] span::before {
+      content: '\f179\00a0';
+    }
+
+    #downloads li[data-filename*="linux"] span::before {
+      content: '\f17c\00a0';
+    }
+
+    #downloads li[data-filename*="win32"] span::before {
+      content: '\f17a\00a0';
+    }
+
+    #downloads li[data-filename*="SHA1SUMS"] span::before {
+      content: '\f15c\00a0';
     }
 
     #version, #published {
@@ -37,18 +74,18 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-        <p><img class="img-responsive center-block" src="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" alt="Atomic TweetDeck"></p>
+      <div class="col-12 col-md-5 col-lg-5">
+        <p><img class="img-fluid" src="https://cloud.githubusercontent.com/assets/486818/12889894/c893d2c8-ce89-11e5-9e0f-1411a9c87eec.jpg" alt="Atomic TweetDeck"></p>
         <h1>Atomic TweetDeck</h1>
         <p>A TweetDeck app that you can fit in your pocket!</p>
         <a href="https://github.com/dogancelik/atomic-tweetdeck">
           Visit project page at <i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
       </div>
 
-      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+      <div class="col-12 col-md-7 col-lg-7">
         <h2>Latest Version</h2>
-        <p>Version <span id="version" class="label label-info"></span>
-          was published <span id="published" class="label label-info"></span></p>
+        <p>Version <span id="version" class="badge badge-info"></span>
+          was published <span id="published" class="badge badge-info"></span></p>
         <h3>Changes</h3>
         <div id="changes" class="text-left">
         </div>
@@ -68,15 +105,11 @@
   <script type="text/javascript">
     var md = window.markdownit();
     var urlRelease = 'https://api.github.com/repos/dogancelik/atomic-tweetdeck/releases/latest';
-    var downloads = $('#downloads');
-    var changes = $('#changes');
 
-    var version = $('#version');
-    var published = $('#published');
-
-    function icon (name) {
-      return '<i class="fa fa-'+name+'" aria-hidden="true"></i>';
-    }
+    var downloads = $('#downloads'),
+      changes = $('#changes'),
+      version = $('#version'),
+      published = $('#published');
 
     $.getJSON(urlRelease, function (obj) {
       version.text(obj.tag_name);
@@ -85,14 +118,18 @@
       changes.html(md.render(obj.body));
       changes.find('p').remove();
       changes.find('table').addClass('table');
-      for (var i = 0; i < obj.assets.length; i++) {
-        var asset = obj.assets[i];
-        var releaseName = '';
-        if (asset.name.indexOf('darwin-x64') > -1) releaseName = icon('apple') + ' Mac OS X (64-bit)';
-        if (asset.name.indexOf('linux-x64') > -1) releaseName = icon('linux') + ' Linux (64-bit)';
-        if (asset.name.indexOf('win32-x64') > -1) releaseName = icon('windows') + ' Windows (64-bit)';
-        downloads.prepend('<li><a class="btn btn-default" href="'+asset.browser_download_url+'">'+releaseName+'</a></li>');
+
+      function addButton(asset) {
+        let releaseName = asset.name,
+          className = 'btn-light';
+        if (asset.name.includes('darwin-x64')) { className = 'btn-danger'; releaseName = 'Mac OS X (64-bit)'; }
+        else if (asset.name.includes('linux-x64')) { className = 'btn-warning'; releaseName = 'Linux (64-bit)'; }
+        else if (asset.name.includes('win32-x64')) { className = 'btn-primary'; releaseName = 'Windows (64-bit)'; }
+        downloads.prepend(`<li class="list-inline-item" data-filename="${asset.name}">
+          <a class="btn ${className}" download href="${asset.browser_download_url}"><span>${releaseName}</span></a>
+        </li>`);
       }
+      obj.assets.sort((a, b) => a.name > b.name).forEach(addButton);
     });
   </script>
 </body>
