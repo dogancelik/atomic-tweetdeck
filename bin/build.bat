@@ -26,7 +26,7 @@ echo App version: %npm_package_version%
 echo Product name: %npm_package_config_productName%
 echo ===============
 
-electron-packager ./ %npm_package_name% ^
+electron-packager . %npm_package_name% ^
   --platform=%npm_package_config_buildPlatform% ^
   --arch=%npm_package_config_buildArch% ^
   --electron-version=%npm_package_config_electronVersion% ^
@@ -35,7 +35,7 @@ electron-packager ./ %npm_package_name% ^
   --app-version="%npm_package_version%" ^
   --version-string.FileDescription="%npm_package_config_productName%" ^
   --version-string.ProductName="%npm_package_config_productName%" ^
-  --icon=favicon.ico ^
+  --icon=res/favicon.ico ^
   --overwrite
 
 goto eof

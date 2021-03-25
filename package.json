@@ -7,7 +7,7 @@
   "author": {
     "name": "Doğan Çelik"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "config": {
     "buildArch": "x64",
     "buildPlatform": "win32,linux,darwin",
@@ -16,10 +16,10 @@
     "zipTargets": "win32:x64:zip linux:x64:tar darwin:x64:tar"
   },
   "scripts": {
-    "clean": "build.bat clean",
+    "clean": "bin\\build.bat clean",
     "start": "electron .",
-    "build": "build.bat build",
-    "zip": "build.bat zip_all"
+    "build": "bin\\build.bat build",
+    "zip": "bin\\build.bat zip_all"
   },
   "dependencies": {
     "configstore": "^5.0.1"
