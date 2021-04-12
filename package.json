@@ -11,7 +11,7 @@
   "config": {
     "buildArch": "x64",
     "buildPlatform": "win32,linux,darwin",
-    "electronVersion": "10.4.2",
+    "electronVersion": "11.4.2",
     "productName": "Atomic TweetDeck",
     "zipTargets": "win32:x64:zip linux:x64:tar darwin:x64:tar"
   },
@@ -25,12 +25,12 @@
     "configstore": "^5.0.1"
   },
   "devDependencies": {
-    "electron": "^10.4.2",
+    "electron": "^11.4.2",
     "electron-packager": "^15.2.0"
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2017
+      "ecmaVersion": 2019
     },
     "env": {
       "node": true
