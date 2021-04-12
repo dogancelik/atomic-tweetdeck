@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2017"
-  }
+    "target": "es2019"
+  },
+  "include": [
+    "lib/*.d.ts",
+    "lib/*.js"
+  ]
 }
