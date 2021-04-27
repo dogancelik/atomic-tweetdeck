@@ -1,7 +1,7 @@
 {
   "name": "atomic-tweetdeck",
   "productName": "Atomic TweetDeck",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "license": "MIT",
   "repository": "github:dogancelik/atomic-tweetdeck",
   "author": {
@@ -11,7 +11,7 @@
   "config": {
     "buildArch": "x64",
     "buildPlatform": "win32,linux,darwin",
-    "electronVersion": "11.4.2",
+    "electronVersion": "11.4.3",
     "productName": "Atomic TweetDeck",
     "zipTargets": "win32:x64:zip linux:x64:tar darwin:x64:tar"
   },
@@ -25,7 +25,7 @@
     "configstore": "^5.0.1"
   },
   "devDependencies": {
-    "electron": "^11.4.2",
+    "electron": "^11.4.3",
     "electron-packager": "^15.2.0"
   },
   "eslintConfig": {
