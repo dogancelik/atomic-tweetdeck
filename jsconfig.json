@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2019"
+    "target": "es2019",
+    "resolveJsonModule": true,
+    "checkJs": true,
   },
   "include": [
-    "lib/*.d.ts",
+    "typings/**/*.d.ts",
     "lib/*.js"
   ]
 }
