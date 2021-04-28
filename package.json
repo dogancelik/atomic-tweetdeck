@@ -26,17 +26,21 @@
   },
   "devDependencies": {
     "electron": "^11.4.3",
-    "electron-packager": "^15.2.0"
+    "electron-packager": "^15.2.0",
+    "eslint": "^7.25.0"
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2019
+      "ecmaVersion": 2020
     },
     "env": {
       "node": true
     },
     "globals": {
       "config": true
+    },
+    "rules": {
+      "no-unused-vars": "warn"
     }
   }
 }
