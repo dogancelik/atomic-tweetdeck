@@ -1,5 +1,8 @@
 @echo off
 
+echo Use Gulpfile instead.
+exit /B 0
+
 set "BUILD_DIR=..\build\"
 set "BUILD_DIR_ART=artifacts\"
 

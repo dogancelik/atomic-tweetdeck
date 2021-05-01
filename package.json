@@ -16,18 +16,22 @@
     "zipTargets": "win32:x64:zip linux:x64:tar darwin:x64:tar"
   },
   "scripts": {
-    "clean": "bin\\build.bat clean",
+    "clean": "gulp clean",
     "start": "electron .",
-    "build": "bin\\build.bat build",
-    "zip": "bin\\build.bat zip_all"
+    "build": "gulp build",
+    "zip": "gulp zip && gulp hash"
   },
   "dependencies": {
     "configstore": "^5.0.1"
   },
   "devDependencies": {
+    "del": "^6.0.0",
     "electron": "^11.4.4",
     "electron-packager": "^15.2.0",
-    "eslint": "^7.25.0"
+    "eslint": "^7.25.0",
+    "gulp": "^4.0.2",
+    "gulp-execa": "^2.0.0",
+    "gulp-hashsum": "^1.2.0"
   },
   "eslintConfig": {
     "parserOptions": {
