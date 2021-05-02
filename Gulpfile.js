@@ -3,6 +3,13 @@ const execa = require('gulp-execa');
 const hashsum = require('gulp-hashsum');
 const del = require('del');
 
+var path7za;
+try {
+	path7za = require('7zip-bin').path7za;
+} catch (e) {
+	path7za = '7za';
+}
+
 const buildDir = '../build',
 	artifactDir = `artifacts`;
 
@@ -69,8 +76,8 @@ Build path: ${baseDir}
 ${sep}`);
 
 	let cmd =	zipType === 'tar' ?
-		`7za a -ttar -so -snl "../artifacts/${basename}.tar" . | 7za a -si "../artifacts/${basename}.tgz"` :
-		`7za a -tzip "../artifacts/${basename}.zip" .`;
+		`${path7za} a -ttar -so -snl "../artifacts/${basename}.tar" . | ${path7za} a -si "../artifacts/${basename}.tgz"` :
+		`${path7za} a -tzip "../artifacts/${basename}.zip" .`;
 
 	if (process.platform === 'win32') {
 		cmd += ' | find /I "ing"';
