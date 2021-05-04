@@ -19,4 +19,32 @@ declare namespace AtomicTweetdeck {
 		postBody: Electron.PostBody) => void;
 
 	type NewWindowEventListenerWrapper = (parentWindow: Electron.BrowserWindow) => NewWindowEventListener;
+
+	interface ConfigNames {
+		openBrowser: string;
+		minToTray: string;
+		x: string;
+		y: string;
+		width: string;
+		height: string;
+		maximized: string;
+		hideMenu: string;
+	}
+
+	interface ConfigDefaults {
+		openBrowser: boolean;
+		minToTray: boolean;
+		x: number;
+		y: number;
+		width: number;
+		height: number;
+		maximized: boolean;
+		hideMenu: boolean;
+	}
+
+	interface Config {
+		names: ConfigNames;
+		defaults: ConfigDefaults;
+		store: import("configstore");
+	}
 }
